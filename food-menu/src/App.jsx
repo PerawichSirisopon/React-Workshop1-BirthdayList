@@ -7,7 +7,15 @@ import Menu from './components/Menu';
 function App() {
   const [menuItems, SetMenuItems] = useState(data);
   const allCategories = 
-    ['All', ...new Set(data.map((item) => { return item.category; }))]
+    ['All', ...new Set(data.map((item) => { return item.category; }))];
+    const filterItems = (category) =>{
+      if (category === 'All'){
+        SetMenuItems(data);
+      }else{
+        const newItems = data.filter((item) => item.category === category);
+        SetMenuItems(newItems);
+      }
+    }
   return (
     <div>
       <h2>Workshop 2: Food Menu</h2>
@@ -17,7 +25,7 @@ function App() {
             <h2>Our menu</h2>
             <div className='underline'></div>
           </div>
-          <Categories allCategories={allCategories}/>
+          <Categories allCategories={allCategories} filterItems={filterItems} />
           <Menu items={menuItems}/>
         </section>
       </main>
